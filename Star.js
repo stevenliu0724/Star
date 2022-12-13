@@ -15,6 +15,7 @@ backgroundGradient.addColorStop(0, "#3f586b");
 
 const color = "white";
 
+//Create big star
 class Star {
     constructor(x, y, r, color) {
         this.x = x;
@@ -59,6 +60,7 @@ class Star {
         this.y += this.velocity.y;
     };
 
+    //ministar scatter display
     shatter() {
         this.r -=3;
         for (let i = 0; i < 8; i++) {
@@ -67,6 +69,7 @@ class Star {
     }
 };
 
+//Create ministar
 class Ministar {
     constructor(x, y, r, color) {
         this.x = x;
@@ -134,9 +137,9 @@ function animate() {
         backgroundstar.draw();
     }); 
 
-    createMontain(1, canvas.height - 50, "#384551");
-    createMontain(2, canvas.height - 100, "#283843");
-    createMontain(3, canvas.height - 300, "#26333E");
+    createMountain(1, canvas.height - 50, "#384551");
+    createMountain(2, canvas.height - 100, "#283843");
+    createMountain(3, canvas.height - 300, "#26333E");
 
     stars.forEach((star, index) => {
         star.update();
@@ -166,7 +169,7 @@ function animate() {
 
 animate();
 
-function createMontain(mountainAmount, height, color) {
+function createMountain(mountainAmount, height, color) {
     for (let i = 0; i < mountainAmount; i++) {
         const mountainWidth = canvas.width / 3;
         c.save();
