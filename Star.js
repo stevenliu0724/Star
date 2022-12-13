@@ -63,7 +63,7 @@ class Star {
     //ministar scatter display
     shatter() {
         this.r -=3;
-        for (let i = 0; i < 8; i++) {
+        for (let i = 0; i < 5; i++) {
             ministars.push(new Ministar(this.x, this.y, 3))
         }
     }
@@ -74,7 +74,7 @@ class Ministar {
     constructor(x, y, r, color) {
         this.x = x;
         this.y = y;
-        this.r = r;
+        this.r = Math.random() * 3;
         this.color = color;
         this.velocity = {
             x: randomXY(-5, 5),
@@ -93,7 +93,7 @@ class Ministar {
         c.fill();
         c.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
         c.shadowColor = "white";
-        c.shadowBlur = 20;
+        c.shadowBlur = 10;
         c.closePath();
         c.restore();
     };
@@ -119,10 +119,11 @@ function init() {
     // for (let i = 0; i < 8; i++) {
     //     stars.push(new Star(canvas.width / 2, 30, 30, "white"))  
 
-    for (let i = 0; i < 8; i++) {
+    //create backgound star
+    for (let i = 0; i < 100; i++) {
         const x = Math.random() * canvas.width
         const y = Math.random() * canvas.height
-        const r = Math.random() * 3
+        const r = Math.random() * 2
         backgroundstars.push(new Star(x, y, r, "white"))
     }
 };  
