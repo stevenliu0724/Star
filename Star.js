@@ -3,6 +3,7 @@ const c = canvas.getContext("2d");
 const stars = [];
 const ministars = [];
 const backgroundstars = [];
+let interval = 0;
 
 
 canvas.width = window.innerWidth;
@@ -21,7 +22,7 @@ class Star {
         this.r = r;
         this.color = color;
         this.velocity = {
-            x: 0,
+            x: (Math.random() - 0.5) * 8,
             y: 0.8,
         };
         this.friction = 0.8;
@@ -35,7 +36,7 @@ class Star {
         c.fill();
         c.fillStyle = this.color;
         c.shadowColor = "white";
-        c.shadowBlur = 0.5;
+        c.shadowBlur = 0.8;
         c.closePath();
         //c.restore();
     };
@@ -49,6 +50,12 @@ class Star {
         } else {
             this.velocity.y += this.gravity;
         }
+
+        if(this.x + this.r + this.velocity.x > canvas.width || this.x - this.r <= 0) {
+            this.velocity.x = -this.velocity.x
+        }
+
+        this.x += this.velocity.x;
         this.y += this.velocity.y;
     };
 
@@ -106,8 +113,8 @@ class Ministar {
 
 function init() {
 
-    for (let i = 0; i < 8; i++) {
-        stars.push(new Star(canvas.width / 2, 30, 30, "white"))  
+    // for (let i = 0; i < 8; i++) {
+    //     stars.push(new Star(canvas.width / 2, 30, 30, "white"))  
 
     for (let i = 0; i < 8; i++) {
         const x = Math.random() * canvas.width
@@ -115,7 +122,6 @@ function init() {
         const r = Math.random() * 3
         backgroundstars.push(new Star(x, y, r, "white"))
     }
-    };
 };  
 init();
 
@@ -147,6 +153,13 @@ function animate() {
             ministars.splice(index, 1);
         }
     });
+
+    interval++
+
+    if(interval % randomXY(5, 100) == 0) {
+        const x = Math.random() * canvas.width
+        stars.push(new Star(x, -100, 15, "white"))
+    }
 
 };
 
