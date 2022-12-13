@@ -4,6 +4,7 @@ const stars = [];
 const ministars = [];
 const backgroundstars = [];
 let interval = 0;
+const groundheight = 100;
 
 
 canvas.width = window.innerWidth;
@@ -45,7 +46,7 @@ class Star {
     update() {
         this.draw();
 
-        if(this.y + this.r + this.velocity.y > canvas.height) {
+        if(this.y + this.r + this.velocity.y > canvas.height - groundheight) {
             this.velocity.y = -this.velocity.y * this.friction
             this.shatter()
         } else {
@@ -101,7 +102,7 @@ class Ministar {
     update() {
         this.draw();
 
-        if(this.y + this.r + this.velocity.y > canvas.height) {
+        if(this.y + this.r + this.velocity.y > canvas.height - groundheight) {
             this.velocity.y = -this.velocity.y * this.friction;
         } else {
             this.velocity.y += this.gravity;
@@ -141,6 +142,9 @@ function animate() {
     createMountain(1, canvas.height - 50, "#384551");
     createMountain(2, canvas.height - 100, "#283843");
     createMountain(3, canvas.height - 300, "#26333E");
+    
+    //c.fillStyle = "#182028"
+    c.fillRect(0, canvas.height - groundheight, canvas.width, groundheight)
 
     stars.forEach((star, index) => {
         star.update();
@@ -148,7 +152,6 @@ function animate() {
             stars.splice(index, 1);
         }
     });
-
 
     
     ministars.forEach((ministar, index) => {
